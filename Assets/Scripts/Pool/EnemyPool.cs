@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Configs;
 using Assets.Scripts.Visuals;
+using Assets.Scripts.Enum;
 using UnityEngine;
 
 namespace Assets.Scripts.Pool

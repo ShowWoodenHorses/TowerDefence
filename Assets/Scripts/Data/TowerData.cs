@@ -12,5 +12,6 @@ namespace Assets.Scripts.Data
         public float timeSinceLastAttack;
         public int damage;
         public float speed;
+        public int targetMask;
     }
 }

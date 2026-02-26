@@ -45,8 +45,9 @@ namespace Assets.Scripts.Managers
                             attackRadius = 25f,
                             attackCooldown = 1f,
                             timeSinceLastAttack = 0f,
-                            damage = 20,
-                            speed = 50
+                            damage = 200,
+                            speed = 50,
+                            targetMask = (int)towerVisual.GetTargetTypes()
                         };
 
                         towerManager.AddTower(data, towerVisual);

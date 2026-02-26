@@ -13,5 +13,6 @@ namespace Assets.Scripts
         public int pointIndex;
         public float animOffset;
         public int version;
+        public int types;
     }
 }

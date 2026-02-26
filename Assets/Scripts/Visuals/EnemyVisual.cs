@@ -1,13 +1,8 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Enum;
 using UnityEngine;
 
 namespace Assets.Scripts.Visuals
 {
-    public enum EnemyType
-    {
-        Box,
-    }
-
     public class EnemyVisual : MonoBehaviour
     {
         [SerializeField] private EnemyType enemyType;

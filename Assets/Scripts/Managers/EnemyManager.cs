@@ -2,6 +2,7 @@
 using Assets.Scripts.Configs;
 using Assets.Scripts.Pool;
 using Assets.Scripts.Visuals;
+using Assets.Scripts.Enum;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers
@@ -93,6 +94,7 @@ namespace Assets.Scripts.Managers
                 hp = hp,
                 pointIndex = 0,
                 animOffset = Random.Range(0f, Mathf.PI * 2),
+                types = (int)v.GetEnemyType()
             };
             enemies[countEnemies].version++;
 

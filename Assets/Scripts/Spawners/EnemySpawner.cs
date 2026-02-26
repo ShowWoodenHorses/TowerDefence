@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Visuals;
 using UnityEngine;
@@ -11,8 +12,8 @@ namespace Assets.Scripts.Spawners
         [SerializeField] private int startHealth;
         [SerializeField] private float startSpeed;
         [SerializeField] private Transform startPos;
-        [SerializeField] private GameObject prefab;
         [SerializeField] private float time;
+        [SerializeField] private List<GameObject> prefabs;
 
         private EnemyManager enemyManager;
 
@@ -28,8 +29,11 @@ namespace Assets.Scripts.Spawners
 
             for (int i = 0; i < startCountEnemy; i++)
             {
-                yield return delay;
-                enemyManager.SpawnEnemy(prefab.GetComponent<EnemyVisual>().GetEnemyType(), startPos.position, startSpeed, startHealth);
+                foreach (var item in prefabs)
+                {
+                    yield return delay;
+                    enemyManager.SpawnEnemy(item.GetComponent<EnemyVisual>().GetEnemyType(), startPos.position, startSpeed, startHealth);
+                }
             }
         }
     }

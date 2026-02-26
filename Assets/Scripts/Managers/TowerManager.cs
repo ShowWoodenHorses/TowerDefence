@@ -45,7 +45,7 @@ namespace Assets.Scripts.Managers
                 if (tower.timeSinceLastAttack < tower.attackCooldown)
                     continue;
 
-                int closestIndex = FindClosestEnemy(tower.position, tower.attackRadius);
+                int closestIndex = FindClosestEnemy(tower);
 
                 if (closestIndex != -1)
                 {
@@ -73,15 +73,15 @@ namespace Assets.Scripts.Managers
             countTower--;
         }
 
-        int FindClosestEnemy(Vector3 position, float radius)
+        int FindClosestEnemy(TowerData tower)
         {
             int foundCount = gridManager.GetEnemiesInRadiusNonAlloc(
-                position,
-                radius,
+                tower.position,
+                tower.attackRadius,
                 enemySearchBuffer);
 
             int closestIndex = -1;
-            float minDist = radius * radius;
+            float minDist = tower.attackRadius * tower.attackRadius;
 
             for (int i = 0; i < foundCount; i++)
             {
@@ -90,9 +90,12 @@ namespace Assets.Scripts.Managers
                 if (idx >= enemyManager.countEnemies)
                     continue;
 
+                if ((tower.targetMask & enemyManager.enemies[idx].types) == 0)
+                    continue;
+
                 ref EnemyData e = ref enemyManager.enemies[idx];
 
-                float dist = (e.position - position).sqrMagnitude;
+                float dist = (e.position - tower.position).sqrMagnitude;
 
                 if (dist < minDist)
                 {

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4967893636394046490}
   - component: {fileID: 8444587314572578756}
   m_Layer: 0
-  m_Name: enemy
+  m_Name: enemy_green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,4 +103,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1776f7024cc807b46a92bfae3ab222dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Visuals.EnemyVisual
-  enemyType: 0
+  enemyType: 16

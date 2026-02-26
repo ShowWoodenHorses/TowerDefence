@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8298715902591130339}
   - component: {fileID: 6371133058838526825}
   m_Layer: 0
-  m_Name: tower
+  m_Name: tower_black
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 00bca1042c718c34d9d47267c6bc5c1d, type: 2}
+  - {fileID: 2100000, guid: 55721764a8eb65f4f9987b24237df4db, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -105,3 +105,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Visuals.TowerVisual
   towerType: 0
   projectileType: 0
+  targetTypes: 2
