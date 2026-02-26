@@ -104,5 +104,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Visuals.TowerVisual
   towerType: 0
-  projectileType: 0
+  projectileType: 1
   targetTypes: 2
+  gradationTower: {fileID: 11400000, guid: bc2423793ea17544580bda4b1d79fd3d, type: 2}

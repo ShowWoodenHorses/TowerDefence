@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Building;
 using Assets.Scripts.Visuals;
 using Assets.Scripts.Data;
+using Assets.Scripts.Configs;
 
 namespace Assets.Scripts.Managers
 {
@@ -38,16 +39,19 @@ namespace Assets.Scripts.Managers
                         towerCell.BuildTower(towerManager.GetCurrentTowerIndex());
                         var createdTower = Instantiate(tower, towerCell.GetPosition(), Quaternion.identity);
                         TowerVisual towerVisual = createdTower.GetComponent<TowerVisual>();
+                        LevelTower config = towerVisual.GetGradationTower().levels[0];
+                        towerVisual.SetVisualObject(config.obj);
 
                         TowerData data = new TowerData
                         {
                             position = towerCell.GetPosition(),
-                            attackRadius = 25f,
-                            attackCooldown = 1f,
+                            attackRadius = config.attackRadius,
+                            attackCooldown = config.attackCooldown,
                             timeSinceLastAttack = 0f,
-                            damage = 200,
-                            speed = 50,
-                            targetMask = (int)towerVisual.GetTargetTypes()
+                            damage = config.damage,
+                            speed = config.speedProjectile,
+                            targetMask = (int)towerVisual.GetTargetTypes(),
+                            level = 0,
                         };
 
                         towerManager.AddTower(data, towerVisual);

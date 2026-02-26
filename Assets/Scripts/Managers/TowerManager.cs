@@ -2,6 +2,7 @@
 using Assets.Scripts.Visuals;
 using UnityEngine;
 using System.Collections.Generic;
+using Assets.Scripts.Configs;
 
 namespace Assets.Scripts.Managers
 {
@@ -9,6 +10,7 @@ namespace Assets.Scripts.Managers
     {
         public TowerData[] towers;
         public TowerVisual[] towersVisual;
+        public GradationTower[] towersGradation;
 
         private int countTower;
 
@@ -29,8 +31,13 @@ namespace Assets.Scripts.Managers
 
             towers = new TowerData[64];
             towersVisual = new TowerVisual[64];
+            towersGradation = new GradationTower[64];
             enemySearchBuffer = new int[256];
         }
+
+        public TowerData GetTowerData(int index) => towers[index];
+
+        public GradationTower GetGradationTower(int index) => towersGradation[index];
 
         void Update()
         {
@@ -61,14 +68,39 @@ namespace Assets.Scripts.Managers
         {
             towers[countTower] = data;
             towersVisual[countTower] = visual;
+            towersGradation[countTower] = visual.GetGradationTower();
 
             countTower++;
+        }
+
+        public void UpLevelTower(int towerIndex)
+        {
+            GradationTower gradationTower = towersGradation[towerIndex];
+            ref TowerData tower = ref towers[towerIndex];
+            int nextlevel = tower.level + 1;
+
+            if (nextlevel >= gradationTower.levels.Length)
+            {
+                return;
+            }
+
+            LevelTower levelData = gradationTower.levels[nextlevel];
+
+            tower.level = nextlevel;
+            tower.attackRadius = levelData.attackRadius;
+            tower.attackCooldown = levelData.attackCooldown;
+            tower.damage = levelData.damage;
+            tower.speed = levelData.speedProjectile;
+            tower.targetMask = (int)levelData.targetTypes;
+
+            towersVisual[towerIndex].SetVisualObject(levelData.obj);
         }
 
         public void RemoveTower(int towerIndex)
         {
             towers[towerIndex] = towers[countTower - 1];
             towersVisual[towerIndex] = towersVisual[countTower - 1];
+            towersGradation[towerIndex] = towersGradation[countTower - 1];
 
             countTower--;
         }

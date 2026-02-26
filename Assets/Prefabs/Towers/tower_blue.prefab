@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 00bca1042c718c34d9d47267c6bc5c1d, type: 2}
+  - {fileID: 2100000, guid: ef29ff1540a49f7418203381f2b78da3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -104,5 +104,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Visuals.TowerVisual
   towerType: 0
-  projectileType: 0
+  projectileType: 1
   targetTypes: 8
+  gradationTower: {fileID: 11400000, guid: 620e985eefb87f641b349a0577b44523, type: 2}

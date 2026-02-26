@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a8771f2e6eecf84e88e89ef287446b2, type: 3}
+  m_Name: 1_level
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Configs.LevelTower
+  obj: {fileID: 8631173251783341416, guid: d8191e9174d60cb4b81b4791d62a7e75, type: 3}
+  attackRadius: 25
+  attackCooldown: 1
+  damage: 200
+  speedProjectile: 25
+  targetTypes: 8

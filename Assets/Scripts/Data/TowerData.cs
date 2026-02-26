@@ -13,5 +13,6 @@ namespace Assets.Scripts.Data
         public int damage;
         public float speed;
         public int targetMask;
+        public int level;
     }
 }
