@@ -3,13 +3,13 @@ using Assets.Scripts.Visuals;
 using UnityEngine;
 using System.Collections.Generic;
 using Assets.Scripts.Configs;
+using static UnityEngine.Rendering.STP;
 
 namespace Assets.Scripts.Managers
 {
     public class TowerManager : MonoBehaviour
     {
         public TowerData[] towers;
-        public TowerVisual[] towersVisual;
         public GradationTower[] towersGradation;
 
         private int countTower;
@@ -17,27 +17,25 @@ namespace Assets.Scripts.Managers
         private EnemyManager enemyManager;
         private GridManager gridManager;
         private ProjectileManager projectileManager;
+        private GameEvents gameEvents;
 
         private int[] enemySearchBuffer;
 
         public void Init(
             EnemyManager enemyManager,
             GridManager gridManager,
-            ProjectileManager projectileManager)
+            ProjectileManager projectileManager,
+            GameEvents gameEvents)
         {
             this.enemyManager = enemyManager;
             this.gridManager = gridManager;
             this.projectileManager = projectileManager;
+            this.gameEvents = gameEvents;
 
             towers = new TowerData[64];
-            towersVisual = new TowerVisual[64];
             towersGradation = new GradationTower[64];
             enemySearchBuffer = new int[256];
         }
-
-        public TowerData GetTowerData(int index) => towers[index];
-
-        public GradationTower GetGradationTower(int index) => towersGradation[index];
 
         void Update()
         {
@@ -56,7 +54,7 @@ namespace Assets.Scripts.Managers
 
                 if (closestIndex != -1)
                 {
-                    ShootAt(closestIndex, tower, towersVisual[i]);
+                    ShootAt(closestIndex, tower);
                     tower.timeSinceLastAttack = 0f;
                 }
             }
@@ -64,11 +62,12 @@ namespace Assets.Scripts.Managers
 
         public int GetCurrentTowerIndex() => countTower;
 
-        public void AddTower(TowerData data, TowerVisual visual)
+        public void AddTower(TowerData data, LevelTower config, GradationTower gradationTower)
         {
             towers[countTower] = data;
-            towersVisual[countTower] = visual;
-            towersGradation[countTower] = visual.GetGradationTower();
+            towersGradation[countTower] = gradationTower;
+
+            gameEvents.OnCreateTower.Raise(countTower, config.obj, data.position);
 
             countTower++;
         }
@@ -87,20 +86,17 @@ namespace Assets.Scripts.Managers
             LevelTower levelData = gradationTower.levels[nextlevel];
 
             tower.level = nextlevel;
-            tower.attackRadius = levelData.attackRadius;
-            tower.attackCooldown = levelData.attackCooldown;
-            tower.damage = levelData.damage;
-            tower.speed = levelData.speedProjectile;
-            tower.targetMask = (int)levelData.targetTypes;
+            tower.ApplyLevel(levelData);
 
-            towersVisual[towerIndex].SetVisualObject(levelData.obj);
+            gameEvents.OnUpdateTower.Raise(towerIndex, levelData.obj, tower.position);
         }
 
         public void RemoveTower(int towerIndex)
         {
             towers[towerIndex] = towers[countTower - 1];
-            towersVisual[towerIndex] = towersVisual[countTower - 1];
             towersGradation[towerIndex] = towersGradation[countTower - 1];
+
+            gameEvents.OnDeactivateTower.Raise(towerIndex);
 
             countTower--;
         }
@@ -139,10 +135,10 @@ namespace Assets.Scripts.Managers
             return closestIndex;
         }
 
-        void ShootAt(int enemyIndex, TowerData data, TowerVisual visual)
+        void ShootAt(int enemyIndex, TowerData data)
         {
             projectileManager.Spawn(
-                visual.GetProjectileType(),
+                data.projectileMask,
                 data.position,
                 enemyIndex,
                 data.speed,

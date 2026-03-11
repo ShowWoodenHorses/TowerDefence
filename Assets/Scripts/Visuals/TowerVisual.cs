@@ -11,18 +11,9 @@ namespace Assets.Scripts.Visuals
     }
     public class TowerVisual : MonoBehaviour
     {
-        [SerializeField] private TowerType towerType;
-        [SerializeField] private ProjectileType projectileType;
-        [SerializeField] private EnemyType targetTypes;
         [SerializeField] private GradationTower gradationTower;
 
         private GameObject currentVisualObject = null;
-
-        public TowerType GetTowerType() => towerType;
-
-        public EnemyType GetTargetTypes() => targetTypes;
-
-        public ProjectileType GetProjectileType() => projectileType;
 
         public GradationTower GetGradationTower() => gradationTower;
 

@@ -20,7 +20,7 @@ namespace Assets.Scripts.Managers
             this.towerManager = towerManager;
         }
 
-        private void OnCreateTower(GameObject tower, Vector2 position)
+        private void OnCreateTower(GradationTower gradationTower, Vector2 position)
         {
             Ray ray = Camera.main.ScreenPointToRay(position);
             RaycastHit hit;
@@ -37,24 +37,17 @@ namespace Assets.Scripts.Managers
                     if (towerCell != null && !towerCell.HasTower())
                     {
                         towerCell.BuildTower(towerManager.GetCurrentTowerIndex());
-                        var createdTower = Instantiate(tower, towerCell.GetPosition(), Quaternion.identity);
-                        TowerVisual towerVisual = createdTower.GetComponent<TowerVisual>();
-                        LevelTower config = towerVisual.GetGradationTower().levels[0];
-                        towerVisual.SetVisualObject(config.obj);
+                        LevelTower config = gradationTower.levels[0];
 
                         TowerData data = new TowerData
                         {
                             position = towerCell.GetPosition(),
-                            attackRadius = config.attackRadius,
-                            attackCooldown = config.attackCooldown,
                             timeSinceLastAttack = 0f,
-                            damage = config.damage,
-                            speed = config.speedProjectile,
-                            targetMask = (int)towerVisual.GetTargetTypes(),
                             level = 0,
                         };
+                        data.ApplyLevel(config);
 
-                        towerManager.AddTower(data, towerVisual);
+                        towerManager.AddTower(data, config, gradationTower);
 
                         break;
                     }

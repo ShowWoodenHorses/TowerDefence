@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Configs.GameEvents
   OnEnemyDied: {fileID: 11400000, guid: 799739314b0ab1647b43411cfc811bb4, type: 2}
   OnProjectileUsed: {fileID: 11400000, guid: 0e0343c41b6d72b4aac32608bc5a54d9, type: 2}
+  OnCreateTower: {fileID: 11400000, guid: fbf75389c9c74b74c86e44c4917e97d3, type: 2}
+  OnUpdateTower: {fileID: 11400000, guid: 1935d3bcda5f5004aaf12e520884e249, type: 2}
+  OnDeactivateTower: {fileID: 11400000, guid: d626f7939063bea4bb39e7e9b9349d04, type: 2}

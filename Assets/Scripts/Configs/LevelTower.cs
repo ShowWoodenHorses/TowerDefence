@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Enum;
+using Assets.Scripts.Visuals;
 using UnityEngine;
 
 namespace Assets.Scripts.Configs
@@ -12,6 +13,8 @@ namespace Assets.Scripts.Configs
         public int damage;
         public float speedProjectile;
         public EnemyType targetTypes;
+        public ProjectileType projectileType;
+        public Color color;
 
     }
 }

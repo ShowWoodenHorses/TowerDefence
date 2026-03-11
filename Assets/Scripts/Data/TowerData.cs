@@ -1,4 +1,6 @@
 ﻿using System;
+using Assets.Scripts.Configs;
+using Assets.Scripts.Visuals;
 using UnityEngine;
 
 namespace Assets.Scripts.Data
@@ -14,5 +16,16 @@ namespace Assets.Scripts.Data
         public float speed;
         public int targetMask;
         public int level;
+        public ProjectileType projectileMask;
+
+        public void ApplyLevel(LevelTower lvl)
+        {
+            attackRadius = lvl.attackRadius;
+            attackCooldown = lvl.attackCooldown;
+            damage = lvl.damage;
+            speed = lvl.speedProjectile;
+            targetMask = (int)lvl.targetTypes;
+            projectileMask = lvl.projectileType;
+        }
     }
 }

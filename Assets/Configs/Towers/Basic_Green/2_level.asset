@@ -18,3 +18,5 @@ MonoBehaviour:
   damage: 200
   speedProjectile: 25
   targetTypes: 16
+  projectileType: 1
+  color: {r: 0, g: 0, b: 0, a: 0}

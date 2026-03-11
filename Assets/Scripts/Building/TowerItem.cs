@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Configs;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,12 +7,12 @@ namespace Assets.Scripts.Building
 {
     public class TowerItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-        [SerializeField] private GameObject towerPrefab;
+        [SerializeField] private GradationTower gradationTower;
 
-        private Action<GameObject, Vector2> createTower;
+        private Action<GradationTower, Vector2> createTower;
         private GameObject ghost;
 
-        public void Init(Action<GameObject, Vector2> createTower)
+        public void Init(Action<GradationTower, Vector2> createTower)
         {
             this.createTower = createTower;
         }
@@ -29,14 +30,14 @@ namespace Assets.Scripts.Building
         public void OnEndDrag(PointerEventData eventData)
         {
             ghost.SetActive(false);
-            createTower?.Invoke(towerPrefab, eventData.position);
+            createTower?.Invoke(gradationTower, eventData.position);
         }
 
         private void GhostTower(Vector3 startPosition)
         {
             if (ghost == null)
             {
-                ghost = Instantiate(towerPrefab, startPosition, Quaternion.identity);
+                ghost = Instantiate(gradationTower.levels[0].obj, startPosition, Quaternion.identity);
                 return;
             }
 

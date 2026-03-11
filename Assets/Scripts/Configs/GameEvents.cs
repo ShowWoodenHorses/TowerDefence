@@ -7,5 +7,8 @@ namespace Assets.Scripts.Configs
     {
         public EnemyEventChannel OnEnemyDied;
         public ProjectileEventChannel OnProjectileUsed;
+        public CreateTowerEvent OnCreateTower;
+        public CreateTowerEvent OnUpdateTower;
+        public IntEventChannel OnDeactivateTower;
     }
 }

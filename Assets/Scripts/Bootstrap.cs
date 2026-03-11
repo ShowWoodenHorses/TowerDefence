@@ -14,6 +14,7 @@ namespace Assets.Scripts
         [SerializeField] private ProjectileManager projectileManager;
         [SerializeField] private GridManager gridManager;
         [SerializeField] private BuildManager buildManager;
+        [SerializeField] private TowerViewManager towerViewManager;
 
         [SerializeField] private EnemySpawner enemySpawner;
 
@@ -36,7 +37,8 @@ namespace Assets.Scripts
 
             enemyManager.Init(gridManager, gameEvents, enemyPool);
             projectileManager.Init(enemyManager, gameEvents, projectilePool);
-            towerManager.Init(enemyManager, gridManager, projectileManager);
+            towerManager.Init(enemyManager, gridManager, projectileManager, gameEvents);
+            towerViewManager.Init(gameEvents);
             buildManager.Init(towerManager);
             enemySpawner.Init(enemyManager);
         }

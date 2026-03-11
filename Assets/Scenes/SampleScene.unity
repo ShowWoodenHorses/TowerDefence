@@ -661,7 +661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a75a7221a1bf24ebca61eb6f45af2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Building.TowerItem
-  towerPrefab: {fileID: 8631173251783341416, guid: de9d06af66946fd428cef62145ec5e66, type: 3}
+  gradationTower: {fileID: 11400000, guid: 620e985eefb87f641b349a0577b44523, type: 2}
 --- !u!114 &402328319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1533,7 +1533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a75a7221a1bf24ebca61eb6f45af2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Building.TowerItem
-  towerPrefab: {fileID: 8631173251783341416, guid: 9231263ba339db74c9fea9cdcfb2654d, type: 3}
+  gradationTower: {fileID: 11400000, guid: 67a779e9bc9c1664fa417ea4f3c1ae8a, type: 2}
 --- !u!114 &1555162333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1748,6 +1748,50 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1749658862}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1780601857
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1780601859}
+  - component: {fileID: 1780601858}
+  m_Layer: 0
+  m_Name: TowerViewManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1780601858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780601857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c11d9f913e0d8f649a4c5c2e7f6c26d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Managers.TowerViewManager
+--- !u!4 &1780601859
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780601857}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -11838,6 +11882,7 @@ MonoBehaviour:
   projectileManager: {fileID: 1817372137}
   gridManager: {fileID: 713049065}
   buildManager: {fileID: 1749658863}
+  towerViewManager: {fileID: 1780601858}
   enemySpawner: {fileID: 308312335}
   enemyPool: {fileID: 2013842867}
   projectilePool: {fileID: 95142247}
@@ -11925,6 +11970,8 @@ MonoBehaviour:
     damage: 15
     speed: 20
     targetMask: 0
+    level: 0
+    projectileMask: 0
   - position: {x: 31, y: 1.5, z: 0}
     attackRadius: 25
     attackCooldown: 0.5
@@ -11932,6 +11979,8 @@ MonoBehaviour:
     damage: 10
     speed: 30
     targetMask: 0
+    level: 0
+    projectileMask: 0
   - position: {x: 35, y: 1.5, z: -17}
     attackRadius: 25
     attackCooldown: 2
@@ -11939,6 +11988,8 @@ MonoBehaviour:
     damage: 30
     speed: 10
     targetMask: 0
+    level: 0
+    projectileMask: 0
   - position: {x: 7, y: 1.5, z: -20}
     attackRadius: 25
     attackCooldown: 0.5
@@ -11946,6 +11997,8 @@ MonoBehaviour:
     damage: 33
     speed: 33
     targetMask: 0
+    level: 0
+    projectileMask: 0
   - position: {x: 8, y: 1.5, z: 8}
     attackRadius: 25
     attackCooldown: 0.5
@@ -11953,6 +12006,8 @@ MonoBehaviour:
     damage: 22
     speed: 22
     targetMask: 0
+    level: 0
+    projectileMask: 0
   - position: {x: -7, y: 1.5, z: 5}
     attackRadius: 25
     attackCooldown: 0.5
@@ -11960,6 +12015,8 @@ MonoBehaviour:
     damage: 55
     speed: 55
     targetMask: 0
+    level: 0
+    projectileMask: 0
   - position: {x: -9, y: 1.5, z: -10}
     attackRadius: 25
     attackCooldown: 0.5
@@ -11967,14 +12024,9 @@ MonoBehaviour:
     damage: 11
     speed: 11
     targetMask: 0
-  towersVisual:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+    level: 0
+    projectileMask: 0
+  towersGradation: []
 --- !u!4 &1953369039
 Transform:
   m_ObjectHideFlags: 0
@@ -16951,7 +17003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a75a7221a1bf24ebca61eb6f45af2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Building.TowerItem
-  towerPrefab: {fileID: 8631173251783341416, guid: 57cadf82de946104cbd1b6feb61309cf, type: 3}
+  gradationTower: {fileID: 11400000, guid: bc2423793ea17544580bda4b1d79fd3d, type: 2}
 --- !u!114 &2139185225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17004,6 +17056,7 @@ SceneRoots:
   - {fileID: 1987606621}
   - {fileID: 1996274104}
   - {fileID: 1817372138}
+  - {fileID: 1780601859}
   - {fileID: 1953369039}
   - {fileID: 1749658864}
   - {fileID: 2015302506}
