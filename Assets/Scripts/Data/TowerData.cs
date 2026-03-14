@@ -17,6 +17,7 @@ namespace Assets.Scripts.Data
         public int targetMask;
         public int level;
         public ProjectileType projectileMask;
+        public Color color;
 
         public void ApplyLevel(LevelTower lvl)
         {
@@ -26,6 +27,7 @@ namespace Assets.Scripts.Data
             speed = lvl.speedProjectile;
             targetMask = (int)lvl.targetTypes;
             projectileMask = lvl.projectileType;
+            color = lvl.color;
         }
     }
 }

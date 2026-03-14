@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 5190426714632916485}
   - component: {fileID: 8730583228142248968}
   - component: {fileID: 8298715902591130339}
+  - component: {fileID: -1197758485297205739}
+  - component: {fileID: -4898829334799650855}
   m_Layer: 0
   m_Name: green_tower_visual
   m_TagString: Untagged
@@ -66,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4dacc32e531404c42b486eac597c4abf, type: 2}
+  - {fileID: 2100000, guid: e00ae852a4fa1ea4ea23b616cf5aaf89, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -90,3 +92,27 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-1197758485297205739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8631173251783341416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8f353fd4e20f0146b6bef808d1ab165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerColorSweep
+--- !u!114 &-4898829334799650855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8631173251783341416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 071d0aea1722d634782f1ee98ab593d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Visuals.TowerVisual

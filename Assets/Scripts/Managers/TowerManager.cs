@@ -67,7 +67,7 @@ namespace Assets.Scripts.Managers
             towers[countTower] = data;
             towersGradation[countTower] = gradationTower;
 
-            gameEvents.OnCreateTower.Raise(countTower, config.obj, data.position);
+            gameEvents.OnCreateTower.Raise(countTower, config, data.position);
 
             countTower++;
         }
@@ -88,7 +88,7 @@ namespace Assets.Scripts.Managers
             tower.level = nextlevel;
             tower.ApplyLevel(levelData);
 
-            gameEvents.OnUpdateTower.Raise(towerIndex, levelData.obj, tower.position);
+            gameEvents.OnUpdateTower.Raise(towerIndex, levelData, tower.position);
         }
 
         public void RemoveTower(int towerIndex)

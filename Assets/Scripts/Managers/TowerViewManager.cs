@@ -22,27 +22,39 @@ namespace Assets.Scripts.Managers
             gameEvents.OnCreateTower.OnRaised += SpawnView;
             gameEvents.OnUpdateTower.OnRaised += UpdateView;
             gameEvents.OnDeactivateTower.OnRaised += DeactivateView;
+            gameEvents.OnChangeColorTower.OnRaised += ChangeColor;
         }
 
-        private void SpawnView(int id, GameObject prefab, Vector3 pos)
+        private void SpawnView(int id, LevelTower config, Vector3 pos)
         {
+            GameObject prefab = config.obj;
             if (deactivateTowers.Contains(prefab))
             {
                 prefab.transform.position = pos;
                 views[id] = prefab.GetComponent<TowerVisual>();
+                prefab.GetComponent<TowerColorSweep>().SetBaseColor(config.color);
                 prefab.SetActive(true);
                 return;
             }
             var v = Instantiate(prefab, pos, Quaternion.identity, transform);
+            v.GetComponent<TowerColorSweep>().SetBaseColor(config.color);
 
             views[id] = v.GetComponent<TowerVisual>();
         }
 
-        private void UpdateView(int id, GameObject prefab, Vector3 pos)
+        private void UpdateView(int id, LevelTower config, Vector3 pos)
         {
             DeactivateView(id);
 
-            SpawnView(id, prefab, pos);
+            SpawnView(id, config, pos);
+        }
+
+        private void ChangeColor(int id, Color newColor)
+        {
+            if (views.Keys.Contains(id))
+            {
+                views[id].gameObject.GetComponent<TowerColorSweep>().ChangeColor(newColor, 1.5f);
+            }
         }
 
         private void DeactivateView(int id)
@@ -60,6 +72,7 @@ namespace Assets.Scripts.Managers
             gameEvents.OnCreateTower.OnRaised -= SpawnView;
             gameEvents.OnUpdateTower.OnRaised -= UpdateView;
             gameEvents.OnDeactivateTower.OnRaised -= DeactivateView;
+            gameEvents.OnChangeColorTower.OnRaised -= ChangeColor;
         }
     }
 }

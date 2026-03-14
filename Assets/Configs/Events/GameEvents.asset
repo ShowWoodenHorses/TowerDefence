@@ -17,3 +17,4 @@ MonoBehaviour:
   OnCreateTower: {fileID: 11400000, guid: fbf75389c9c74b74c86e44c4917e97d3, type: 2}
   OnUpdateTower: {fileID: 11400000, guid: 1935d3bcda5f5004aaf12e520884e249, type: 2}
   OnDeactivateTower: {fileID: 11400000, guid: d626f7939063bea4bb39e7e9b9349d04, type: 2}
+  OnChangeColorTower: {fileID: 11400000, guid: b5acecf7fe3c35942878bc43cfade015, type: 2}

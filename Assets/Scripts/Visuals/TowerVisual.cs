@@ -11,24 +11,6 @@ namespace Assets.Scripts.Visuals
     }
     public class TowerVisual : MonoBehaviour
     {
-        [SerializeField] private GradationTower gradationTower;
 
-        private GameObject currentVisualObject = null;
-
-        public GradationTower GetGradationTower() => gradationTower;
-
-        public void SetVisualObject(GameObject newVisual)
-        {
-            if (currentVisualObject != null)
-            {
-                var spawnPos = currentVisualObject.transform.position;
-                Destroy(currentVisualObject);
-
-                currentVisualObject = Instantiate(newVisual, spawnPos, Quaternion.identity);
-                return;
-            }
-
-            currentVisualObject = Instantiate(newVisual, transform.position, Quaternion.identity);
-        }
     }
 }

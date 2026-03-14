@@ -1,8 +1,11 @@
-﻿using Assets.Scripts.Configs;
+﻿using Assets.Scripts.Building;
+using Assets.Scripts.Configs;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Pool;
 using Assets.Scripts.Spawners;
 using UnityEngine;
+using System.Collections.Generic;
+using Assets.Scripts.UI.Tower;
 
 namespace Assets.Scripts
 {
@@ -22,6 +25,10 @@ namespace Assets.Scripts
         [SerializeField] private ProjectilePool projectilePool;
 
         [SerializeField] private GameEvents gameEvents;
+        [SerializeField] private List<TowerCell> towerCells;
+
+        [Space, Header("UI")]
+        [SerializeField] private PaletteViewPanel paletteViewPanel;
 
         private void Awake()
         {
@@ -41,6 +48,9 @@ namespace Assets.Scripts
             towerViewManager.Init(gameEvents);
             buildManager.Init(towerManager);
             enemySpawner.Init(enemyManager);
+            paletteViewPanel.Init(gameEvents);
+
+            towerCells.ForEach(t => t.Init(towerManager, gameEvents, paletteViewPanel));
         }
     }
 }

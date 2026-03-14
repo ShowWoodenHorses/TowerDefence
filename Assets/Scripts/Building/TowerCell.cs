@@ -2,6 +2,7 @@
 using Assets.Scripts.Configs;
 using Assets.Scripts.Data;
 using Assets.Scripts.Managers;
+using Assets.Scripts.UI.Tower;
 using UnityEngine;
 
 namespace Assets.Scripts.Building
@@ -13,12 +14,24 @@ namespace Assets.Scripts.Building
         private Material[] currentMaterials;
         private int towerIndex;
         private bool hasTower;
+        private bool isTestChangeColor;
 
         private TowerManager towerManager;
+        private GameEvents gameEvents;
+        private PaletteViewPanel paletteViewPanel;
 
-        public void Init(TowerManager towerManager)
+        public void Init(TowerManager towerManager, GameEvents gameEvents, PaletteViewPanel paletteViewPanel)
         {
             this.towerManager = towerManager;
+            this.gameEvents = gameEvents;
+            this.paletteViewPanel = paletteViewPanel;
+        }
+        void Update()
+        {
+            if (Input.GetMouseButtonDown(0) && hasTower)
+            {
+                ShowPaletteTower();
+            }
         }
 
         public int GetTowerIndex() => towerIndex;
@@ -52,6 +65,11 @@ namespace Assets.Scripts.Building
             {
                 currentMaterials[i] = startMaterials[i];
             }
+        }
+
+        public void ShowPaletteTower()
+        {
+            paletteViewPanel.Open(towerIndex, transform.position);
         }
 
     }

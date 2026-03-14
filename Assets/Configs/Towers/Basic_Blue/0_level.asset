@@ -19,4 +19,4 @@ MonoBehaviour:
   speedProjectile: 25
   targetTypes: 8
   projectileType: 1
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 0.077162705, g: 0.5137309, b: 0.9622642, a: 1}
