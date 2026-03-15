@@ -1,15 +1,16 @@
 ﻿using Assets.Scripts.Data;
-using Assets.Scripts.Visuals;
 using UnityEngine;
-using System.Collections.Generic;
 using Assets.Scripts.Configs;
-using static UnityEngine.Rendering.STP;
+using Assets.Scripts.Enum;
+using System;
+using Assets.Scripts.Visuals;
 
 namespace Assets.Scripts.Managers
 {
     public class TowerManager : MonoBehaviour
     {
         public TowerData[] towers;
+        public TowerVisual[] towersVisuals;
         public GradationTower[] towersGradation;
 
         private int countTower;
@@ -33,15 +34,19 @@ namespace Assets.Scripts.Managers
             this.gameEvents = gameEvents;
 
             towers = new TowerData[64];
+            towersVisuals = new TowerVisual[64];
             towersGradation = new GradationTower[64];
             enemySearchBuffer = new int[256];
+
+            gameEvents.OnChangeMaskTargetTower.OnRaised += OnChangeMaskTarget;
+            gameEvents.OnAddTowerVisual.OnRaised += OnAddTowerVisual;
         }
 
-        void Update()
+        private void Update()
         {
             float dt = Time.deltaTime;
 
-            for (int i = 0; i < towers.Length; i++)
+            for (int i = 0; i < countTower; i++)
             {
                 ref TowerData tower = ref towers[i];
 
@@ -50,11 +55,21 @@ namespace Assets.Scripts.Managers
                 if (tower.timeSinceLastAttack < tower.attackCooldown)
                     continue;
 
-                int closestIndex = FindClosestEnemy(tower);
+                LevelTower levelData = towersGradation[i].levels[tower.level];
 
-                if (closestIndex != -1)
+                int maxTargets = levelData.targetingMode switch
                 {
-                    ShootAt(closestIndex, tower);
+                    TargetingMode.Closest => 1,
+                    TargetingMode.MultiTarget => levelData.maxTargets,
+                    TargetingMode.AllInRadius => enemySearchBuffer.Length,
+                    _ => 1
+                };
+
+                int foundTargets = FindEnemies(tower, maxTargets);
+
+                if (foundTargets > 0)
+                {
+                    Shoot(tower, i, foundTargets);
                     tower.timeSinceLastAttack = 0f;
                 }
             }
@@ -101,15 +116,14 @@ namespace Assets.Scripts.Managers
             countTower--;
         }
 
-        int FindClosestEnemy(TowerData tower)
+        private int FindEnemies(TowerData tower, int maxTargets)
         {
             int foundCount = gridManager.GetEnemiesInRadiusNonAlloc(
                 tower.position,
                 tower.attackRadius,
                 enemySearchBuffer);
 
-            int closestIndex = -1;
-            float minDist = tower.attackRadius * tower.attackRadius;
+            int validCount = 0;
 
             for (int i = 0; i < foundCount; i++)
             {
@@ -121,29 +135,61 @@ namespace Assets.Scripts.Managers
                 if ((tower.targetMask & enemyManager.enemies[idx].types) == 0)
                     continue;
 
-                ref EnemyData e = ref enemyManager.enemies[idx];
+                enemySearchBuffer[validCount++] = idx;
 
-                float dist = (e.position - tower.position).sqrMagnitude;
-
-                if (dist < minDist)
-                {
-                    minDist = dist;
-                    closestIndex = idx;
-                }
+                if (validCount >= maxTargets)
+                    break;
             }
 
-            return closestIndex;
+            return validCount;
         }
 
-        void ShootAt(int enemyIndex, TowerData data)
+        private void Shoot(TowerData tower, int towerId, int targetCount)
         {
-            projectileManager.Spawn(
-                data.projectileMask,
-                data.position,
-                enemyIndex,
-                data.speed,
-                data.damage
-            );
+            TowerVisual visual = towersVisuals[towerId];
+            if (visual == null)
+                return;
+
+            var gunPoints = visual.GunPoints;
+            int guns = gunPoints.Length;
+
+            for (int g = 0; g < guns; g++)
+            {
+                if (g >= targetCount)
+                    break;
+
+                int enemyIndex = enemySearchBuffer[g];
+
+                Vector3 spawnPos = gunPoints[g].position;
+
+                projectileManager.Spawn(
+                    tower.projectileMask,
+                    spawnPos,
+                    enemyIndex,
+                    tower.speed,
+                    tower.damage
+                );
+            }
+        }
+
+        private void OnChangeMaskTarget(int id, ColorType newMask)
+        {
+            if (id >= 0 && id < towers.Length)
+            {
+                ref TowerData tower = ref towers[id];
+                tower.targetMask = (int)newMask;
+            }
+        }
+
+        private void OnAddTowerVisual(int id, TowerVisual visual)
+        {
+            towersVisuals[id] = visual;
+        }
+
+        private void OnDisable()
+        {
+            gameEvents.OnChangeMaskTargetTower.OnRaised -= OnChangeMaskTarget;
+            gameEvents.OnAddTowerVisual.OnRaised -= OnAddTowerVisual;
         }
     }
 }

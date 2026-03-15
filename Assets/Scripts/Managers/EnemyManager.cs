@@ -71,7 +71,7 @@ namespace Assets.Scripts.Managers
             }
         }
 
-        public void SpawnEnemy(EnemyType type, Vector3 pos, float speed, int hp)
+        public void SpawnEnemy(ColorType type, Vector3 pos, float speed, int hp)
         {
             if (countEnemies >= enemies.Length)
             {

@@ -5,9 +5,9 @@ namespace Assets.Scripts.Visuals
 {
     public class EnemyVisual : MonoBehaviour
     {
-        [SerializeField] private EnemyType enemyType;
+        [SerializeField] private ColorType enemyType;
 
-        public EnemyType GetEnemyType()
+        public ColorType GetEnemyType()
         {
             return enemyType;
         }

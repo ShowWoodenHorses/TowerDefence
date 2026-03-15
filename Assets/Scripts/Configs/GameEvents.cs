@@ -11,5 +11,7 @@ namespace Assets.Scripts.Configs
         public CreateTowerEvent OnUpdateTower;
         public IntEventChannel OnDeactivateTower;
         public ChangeColorEvent OnChangeColorTower;
+        public ChangeMaskTargetTowerEvent OnChangeMaskTargetTower;
+        public TowerVisualEvent OnAddTowerVisual;
     }
 }

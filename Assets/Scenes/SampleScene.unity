@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d666899507012f248993d8ca9563701a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.UI.Tower.ColorViewItem
-  colorTower: 4
+  ColorType: 32
 --- !u!1001 &185523584
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1134,7 +1134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d666899507012f248993d8ca9563701a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.UI.Tower.ColorViewItem
-  colorTower: 1
+  ColorType: 2
 --- !u!1 &621257836
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,7 +1312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d666899507012f248993d8ca9563701a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.UI.Tower.ColorViewItem
-  colorTower: 6
+  ColorType: 64
 --- !u!1 &719762211
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,7 +1476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d666899507012f248993d8ca9563701a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.UI.Tower.ColorViewItem
-  colorTower: 7
+  ColorType: 128
 --- !u!1 &772833132
 GameObject:
   m_ObjectHideFlags: 0
@@ -1639,15 +1639,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5710450824165932160, guid: 8770040bd61b5cf499187aecfb897bb4, type: 3}
       propertyPath: m_Size.x
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5710450824165932160, guid: 8770040bd61b5cf499187aecfb897bb4, type: 3}
       propertyPath: m_Size.y
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5710450824165932160, guid: 8770040bd61b5cf499187aecfb897bb4, type: 3}
       propertyPath: m_Size.z
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6838000937205558304, guid: 8770040bd61b5cf499187aecfb897bb4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2203,7 +2203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d666899507012f248993d8ca9563701a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.UI.Tower.ColorViewItem
-  colorTower: 3
+  ColorType: 8
 --- !u!1 &1555162330
 GameObject:
   m_ObjectHideFlags: 0
@@ -2640,7 +2640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d666899507012f248993d8ca9563701a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.UI.Tower.ColorViewItem
-  colorTower: 5
+  ColorType: 16
 --- !u!114 &1740302351 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6671754241589415561, guid: 8770040bd61b5cf499187aecfb897bb4, type: 3}
@@ -13028,6 +13028,7 @@ MonoBehaviour:
     level: 0
     projectileMask: 0
     color: {r: 0, g: 0, b: 0, a: 0}
+  towersVisuals: []
   towersGradation: []
 --- !u!4 &1953369039
 Transform:
@@ -17986,7 +17987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d666899507012f248993d8ca9563701a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.UI.Tower.ColorViewItem
-  colorTower: 8
+  ColorType: 256
 --- !u!114 &2110745478
 MonoBehaviour:
   m_ObjectHideFlags: 0

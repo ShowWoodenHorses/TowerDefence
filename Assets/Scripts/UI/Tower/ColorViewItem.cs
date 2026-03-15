@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using Assets.Scripts.Enum;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,16 +7,16 @@ namespace Assets.Scripts.UI.Tower
 {
     public class ColorViewItem : MonoBehaviour, IPointerClickHandler
     {
-        [SerializeField] private ColorTower colorTower;
-        private Action<ColorTower> onSelectColor; 
-        public void Init(Action<ColorTower> onSelectColor)
+        [SerializeField] private ColorType ColorType;
+        private Action<ColorType> onSelectColor; 
+        public void Init(Action<ColorType> onSelectColor)
         {
             this.onSelectColor = onSelectColor;
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            onSelectColor?.Invoke(colorTower);
+            onSelectColor?.Invoke(ColorType);
         }
     }
 }

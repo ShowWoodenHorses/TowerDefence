@@ -11,6 +11,8 @@ namespace Assets.Scripts.Visuals
     }
     public class TowerVisual : MonoBehaviour
     {
+        [SerializeField] private Transform[] gunPoints;
 
+        public Transform[] GunPoints => gunPoints;
     }
 }

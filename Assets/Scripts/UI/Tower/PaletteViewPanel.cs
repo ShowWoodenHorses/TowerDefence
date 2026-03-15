@@ -1,23 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Assets.Scripts.Configs;
-using Unity.VisualScripting.Antlr3.Runtime;
+using Assets.Scripts.Enum;
 using UnityEngine;
 
 namespace Assets.Scripts.UI.Tower
 {
-    public enum ColorTower
-    {
-        None,
-        Black,
-        White,
-        Blue,
-        Red,
-        Green,
-        Yellow,
-        Purple,
-        Orange,
-    }
     public class PaletteViewPanel : MonoBehaviour
     {
         [SerializeField] private List<ColorViewItem> colorItems;
@@ -56,28 +43,29 @@ namespace Assets.Scripts.UI.Tower
             colorItems.ForEach(i => i.gameObject.SetActive(true));
         }
 
-        private void OnSelectedColor(ColorTower color)
+        private void OnSelectedColor(ColorType color)
         {
             gameEvents.OnChangeColorTower.Raise(currentTowerIndex, GetColor(color));
+            gameEvents.OnChangeMaskTargetTower.Raise(currentTowerIndex, color);
         }
 
-        private Color GetColor(ColorTower color)
+        private Color GetColor(ColorType color)
         {
             switch (color)
             {
-                case ColorTower.Black:
+                case ColorType.Black:
                     return Color.black;
-                case ColorTower.Blue:
+                case ColorType.Blue:
                     return Color.blue;
-                case ColorTower.Red:
+                case ColorType.Red:
                     return Color.red;
-                case ColorTower.Green:
+                case ColorType.Green:
                     return Color.green;
-                case ColorTower.Yellow:
+                case ColorType.Yellow:
                     return Color.yellow;
-                case ColorTower.Purple:
+                case ColorType.Purple:
                     return Color.purple;
-                case ColorTower.Orange:
+                case ColorType.Orange:
                     return Color.orange;
                 default:
                     return Color.white;

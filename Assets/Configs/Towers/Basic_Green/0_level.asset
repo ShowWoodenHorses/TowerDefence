@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a8771f2e6eecf84e88e89ef287446b2, type: 3}
   m_Name: 0_level
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Configs.LevelTower
-  obj: {fileID: 8631173251783341416, guid: e005e0280b679514e8ff96addd43e89f, type: 3}
+  obj: {fileID: 8631173251783341416, guid: ebd1da998b51bf945a977c4262533d04, type: 3}
   attackRadius: 25
   attackCooldown: 1
-  damage: 200
+  damage: 50
   speedProjectile: 25
   targetTypes: 16
   projectileType: 1
   color: {r: 0.04209684, g: 0.8113208, b: 0.12410733, a: 1}
+  targetingMode: 1
+  maxTargets: 2

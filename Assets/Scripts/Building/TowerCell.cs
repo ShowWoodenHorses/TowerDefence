@@ -26,13 +26,6 @@ namespace Assets.Scripts.Building
             this.gameEvents = gameEvents;
             this.paletteViewPanel = paletteViewPanel;
         }
-        void Update()
-        {
-            if (Input.GetMouseButtonDown(0) && hasTower)
-            {
-                ShowPaletteTower();
-            }
-        }
 
         public int GetTowerIndex() => towerIndex;
         public Vector3 GetPosition() => transform.position;
@@ -70,6 +63,14 @@ namespace Assets.Scripts.Building
         public void ShowPaletteTower()
         {
             paletteViewPanel.Open(towerIndex, transform.position);
+        }
+
+        private void OnMouseDown()
+        {
+            if (!hasTower)
+                return;
+
+            ShowPaletteTower();
         }
 
     }

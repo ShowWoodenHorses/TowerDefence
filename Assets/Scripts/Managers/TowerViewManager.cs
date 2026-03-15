@@ -40,6 +40,8 @@ namespace Assets.Scripts.Managers
             v.GetComponent<TowerColorSweep>().SetBaseColor(config.color);
 
             views[id] = v.GetComponent<TowerVisual>();
+
+            gameEvents.OnAddTowerVisual.Raise(id, v.GetComponent<TowerVisual>());
         }
 
         private void UpdateView(int id, LevelTower config, Vector3 pos)
