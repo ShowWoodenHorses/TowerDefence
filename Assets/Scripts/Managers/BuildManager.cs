@@ -46,6 +46,7 @@ namespace Assets.Scripts.Managers
                             level = 0,
                         };
                         data.ApplyLevel(config);
+                        data.UpdateColorType(config.color, config.targetTypes);
 
                         towerManager.AddTower(data, config, gradationTower);
 

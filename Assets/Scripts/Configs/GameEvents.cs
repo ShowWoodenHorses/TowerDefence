@@ -9,6 +9,7 @@ namespace Assets.Scripts.Configs
         public ProjectileEventChannel OnProjectileUsed;
         public CreateTowerEvent OnCreateTower;
         public CreateTowerEvent OnUpdateTower;
+        public IntEventChannel OnUpLevelTower;
         public IntEventChannel OnDeactivateTower;
         public ChangeColorEvent OnChangeColorTower;
         public ChangeMaskTargetTowerEvent OnChangeMaskTargetTower;

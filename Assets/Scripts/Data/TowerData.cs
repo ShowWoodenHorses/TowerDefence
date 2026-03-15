@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Scripts.Configs;
+using Assets.Scripts.Enum;
 using Assets.Scripts.Visuals;
 using UnityEngine;
 
@@ -25,9 +26,14 @@ namespace Assets.Scripts.Data
             attackCooldown = lvl.attackCooldown;
             damage = lvl.damage;
             speed = lvl.speedProjectile;
-            targetMask = (int)lvl.targetTypes;
             projectileMask = lvl.projectileType;
-            color = lvl.color;
+        }
+
+
+        public void UpdateColorType(Color newColor, ColorType newColorType)
+        {
+            color = newColor;
+            targetMask = (int)newColorType;
         }
     }
 }

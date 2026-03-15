@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.Enum
 {
@@ -14,5 +15,31 @@ namespace Assets.Scripts.Enum
         Yellow = 1 << 6,
         Purple = 1 << 7,
         Orange = 1 << 8,
+    }
+
+    public class ColorTypeHandler
+    {
+        public Color GetColor(ColorType color)
+        {
+            switch (color)
+            {
+                case ColorType.Black:
+                    return Color.black;
+                case ColorType.Blue:
+                    return Color.blue;
+                case ColorType.Red:
+                    return Color.red;
+                case ColorType.Green:
+                    return Color.green;
+                case ColorType.Yellow:
+                    return Color.yellow;
+                case ColorType.Purple:
+                    return Color.purple;
+                case ColorType.Orange:
+                    return Color.orange;
+                default:
+                    return Color.white;
+            }
+        }
     }
 }

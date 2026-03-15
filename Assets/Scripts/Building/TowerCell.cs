@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Assets.Scripts.Configs;
 using Assets.Scripts.Data;
 using Assets.Scripts.Managers;
@@ -14,17 +15,12 @@ namespace Assets.Scripts.Building
         private Material[] currentMaterials;
         private int towerIndex;
         private bool hasTower;
-        private bool isTestChangeColor;
 
-        private TowerManager towerManager;
-        private GameEvents gameEvents;
-        private PaletteViewPanel paletteViewPanel;
+        private SettingTowerViewPanel settingTowerViewPanel;
 
-        public void Init(TowerManager towerManager, GameEvents gameEvents, PaletteViewPanel paletteViewPanel)
+        public void Init(SettingTowerViewPanel settingTowerViewPanel)
         {
-            this.towerManager = towerManager;
-            this.gameEvents = gameEvents;
-            this.paletteViewPanel = paletteViewPanel;
+            this.settingTowerViewPanel = settingTowerViewPanel;
         }
 
         public int GetTowerIndex() => towerIndex;
@@ -36,33 +32,28 @@ namespace Assets.Scripts.Building
             towerIndex = newIndex;
             hasTower = true;
 
-            startMaterials = GetComponent<MeshRenderer>().materials;
-            currentMaterials = startMaterials;
+            //startMaterials = GetComponent<MeshRenderer>().materials;
+            //currentMaterials = startMaterials;
 
-            for (int i = 0; i < currentMaterials.Length; i++)
-            {
-                currentMaterials[i] = m_invisible;
-            }
-        }
-
-        public void UpdateTower()
-        {
-            towerManager.UpLevelTower(towerIndex);
+            //for (int i = 0; i < currentMaterials.Length; i++)
+            //{
+            //    currentMaterials[i] = m_invisible;
+            //}
         }
 
         public void DestroyTower()
         {
             hasTower = false;
 
-            for (int i = 0; i < startMaterials.Length; i++)
-            {
-                currentMaterials[i] = startMaterials[i];
-            }
+            //for (int i = 0; i < startMaterials.Length; i++)
+            //{
+            //    currentMaterials[i] = startMaterials[i];
+            //}
         }
 
-        public void ShowPaletteTower()
+        public void ShowSettingTowerPanel()
         {
-            paletteViewPanel.Open(towerIndex, transform.position);
+            settingTowerViewPanel.Open(towerIndex, transform, DestroyTower);
         }
 
         private void OnMouseDown()
@@ -70,7 +61,7 @@ namespace Assets.Scripts.Building
             if (!hasTower)
                 return;
 
-            ShowPaletteTower();
+            ShowSettingTowerPanel();
         }
 
     }

@@ -2,7 +2,6 @@
 using UnityEngine;
 using Assets.Scripts.Configs;
 using Assets.Scripts.Enum;
-using System;
 using Assets.Scripts.Visuals;
 
 namespace Assets.Scripts.Managers
@@ -39,7 +38,10 @@ namespace Assets.Scripts.Managers
             enemySearchBuffer = new int[256];
 
             gameEvents.OnChangeMaskTargetTower.OnRaised += OnChangeMaskTarget;
+            gameEvents.OnChangeColorTower.OnRaised += OnChangeColor;
             gameEvents.OnAddTowerVisual.OnRaised += OnAddTowerVisual;
+            gameEvents.OnUpLevelTower.OnRaised += UpLevelTower;
+            gameEvents.OnDeactivateTower.OnRaised += RemoveTower;
         }
 
         private void Update()
@@ -82,12 +84,12 @@ namespace Assets.Scripts.Managers
             towers[countTower] = data;
             towersGradation[countTower] = gradationTower;
 
-            gameEvents.OnCreateTower.Raise(countTower, config, data.position);
+            gameEvents.OnCreateTower.Raise(countTower, config.obj, data);
 
             countTower++;
         }
 
-        public void UpLevelTower(int towerIndex)
+        private void UpLevelTower(int towerIndex)
         {
             GradationTower gradationTower = towersGradation[towerIndex];
             ref TowerData tower = ref towers[towerIndex];
@@ -103,15 +105,13 @@ namespace Assets.Scripts.Managers
             tower.level = nextlevel;
             tower.ApplyLevel(levelData);
 
-            gameEvents.OnUpdateTower.Raise(towerIndex, levelData, tower.position);
+            gameEvents.OnUpdateTower.Raise(towerIndex, levelData.obj, tower);
         }
 
-        public void RemoveTower(int towerIndex)
+        private void RemoveTower(int towerIndex)
         {
             towers[towerIndex] = towers[countTower - 1];
             towersGradation[towerIndex] = towersGradation[countTower - 1];
-
-            gameEvents.OnDeactivateTower.Raise(towerIndex);
 
             countTower--;
         }
@@ -181,6 +181,15 @@ namespace Assets.Scripts.Managers
             }
         }
 
+        private void OnChangeColor(int id, Color newColor)
+        {
+            if (id >= 0 && id < towers.Length)
+            {
+                ref TowerData tower = ref towers[id];
+                tower.color = newColor;
+            }
+        }
+
         private void OnAddTowerVisual(int id, TowerVisual visual)
         {
             towersVisuals[id] = visual;
@@ -189,7 +198,10 @@ namespace Assets.Scripts.Managers
         private void OnDisable()
         {
             gameEvents.OnChangeMaskTargetTower.OnRaised -= OnChangeMaskTarget;
+            gameEvents.OnChangeColorTower.OnRaised -= OnChangeColor;
             gameEvents.OnAddTowerVisual.OnRaised -= OnAddTowerVisual;
+            gameEvents.OnUpLevelTower.OnRaised -= UpLevelTower;
+            gameEvents.OnDeactivateTower.OnRaised -= RemoveTower;
         }
     }
 }

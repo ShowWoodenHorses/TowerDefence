@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using Assets.Scripts.Visuals;
+﻿using Assets.Scripts.Visuals;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Configs;
@@ -25,30 +24,29 @@ namespace Assets.Scripts.Managers
             gameEvents.OnChangeColorTower.OnRaised += ChangeColor;
         }
 
-        private void SpawnView(int id, LevelTower config, Vector3 pos)
+        private void SpawnView(int id, GameObject prefab, TowerData data)
         {
-            GameObject prefab = config.obj;
             if (deactivateTowers.Contains(prefab))
             {
-                prefab.transform.position = pos;
+                prefab.transform.position = data.position;
                 views[id] = prefab.GetComponent<TowerVisual>();
-                prefab.GetComponent<TowerColorSweep>().SetBaseColor(config.color);
+                prefab.GetComponent<TowerColorSweep>().SetBaseColor(data.color);
                 prefab.SetActive(true);
                 return;
             }
-            var v = Instantiate(prefab, pos, Quaternion.identity, transform);
-            v.GetComponent<TowerColorSweep>().SetBaseColor(config.color);
+            var v = Instantiate(prefab, data.position, Quaternion.identity, transform);
+            v.GetComponent<TowerColorSweep>().SetBaseColor(data.color);
 
             views[id] = v.GetComponent<TowerVisual>();
 
             gameEvents.OnAddTowerVisual.Raise(id, v.GetComponent<TowerVisual>());
         }
 
-        private void UpdateView(int id, LevelTower config, Vector3 pos)
+        private void UpdateView(int id, GameObject prefab, TowerData data)
         {
             DeactivateView(id);
 
-            SpawnView(id, config, pos);
+            SpawnView(id, prefab, data);
         }
 
         private void ChangeColor(int id, Color newColor)

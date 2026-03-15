@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 0_level
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Configs.LevelTower
   obj: {fileID: 8631173251783341416, guid: b84dcf8b9f607424fb65633e5ef8153a, type: 3}
-  attackRadius: 25
+  attackRadius: 10
   attackCooldown: 1
   damage: 50
   speedProjectile: 25

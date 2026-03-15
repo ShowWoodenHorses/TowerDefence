@@ -28,6 +28,7 @@ namespace Assets.Scripts
         [SerializeField] private List<TowerCell> towerCells;
 
         [Space, Header("UI")]
+        [SerializeField] private SettingTowerViewPanel settingTowerViewPanel;
         [SerializeField] private PaletteViewPanel paletteViewPanel;
 
         private void Awake()
@@ -49,8 +50,9 @@ namespace Assets.Scripts
             buildManager.Init(towerManager);
             enemySpawner.Init(enemyManager);
             paletteViewPanel.Init(gameEvents);
+            settingTowerViewPanel.Init(gameEvents, paletteViewPanel);
 
-            towerCells.ForEach(t => t.Init(towerManager, gameEvents, paletteViewPanel));
+            towerCells.ForEach(t => t.Init(settingTowerViewPanel));
         }
     }
 }

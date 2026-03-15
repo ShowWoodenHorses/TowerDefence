@@ -9,13 +9,16 @@ namespace Assets.Scripts.UI.Tower
     {
         [SerializeField] private List<ColorViewItem> colorItems;
         private GameEvents gameEvents;
+        private ColorTypeHandler colorTypeHandler;
 
         private int currentTowerIndex;
         private bool isOpen = false;
         public void Init(GameEvents gameEvents)
         {
             this.gameEvents = gameEvents;
+            colorTypeHandler = new ColorTypeHandler();
             colorItems.ForEach(i => i.Init(OnSelectedColor));
+            Close();
         }
 
         public void Open(int newIndex, Vector2 position)
@@ -45,31 +48,8 @@ namespace Assets.Scripts.UI.Tower
 
         private void OnSelectedColor(ColorType color)
         {
-            gameEvents.OnChangeColorTower.Raise(currentTowerIndex, GetColor(color));
+            gameEvents.OnChangeColorTower.Raise(currentTowerIndex, colorTypeHandler.GetColor(color));
             gameEvents.OnChangeMaskTargetTower.Raise(currentTowerIndex, color);
-        }
-
-        private Color GetColor(ColorType color)
-        {
-            switch (color)
-            {
-                case ColorType.Black:
-                    return Color.black;
-                case ColorType.Blue:
-                    return Color.blue;
-                case ColorType.Red:
-                    return Color.red;
-                case ColorType.Green:
-                    return Color.green;
-                case ColorType.Yellow:
-                    return Color.yellow;
-                case ColorType.Purple:
-                    return Color.purple;
-                case ColorType.Orange:
-                    return Color.orange;
-                default:
-                    return Color.white;
-            }
         }
     }
 }
