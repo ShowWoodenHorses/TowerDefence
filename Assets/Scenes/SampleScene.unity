@@ -3659,6 +3659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11d9f913e0d8f649a4c5c2e7f6c26d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Managers.TowerViewManager
+  gradientTexture: {fileID: 2800000, guid: 3cb740c2fe57e9f46b6c87d91bcecdc5, type: 3}
 --- !u!4 &1780601859
 Transform:
   m_ObjectHideFlags: 0
@@ -14087,6 +14088,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Bootstrap
   enemyManager: {fileID: 1987606620}
   towerManager: {fileID: 1953369038}
+  towerColorSweep: {fileID: 0}
   effectManager: {fileID: 1996274103}
   projectileManager: {fileID: 1817372137}
   gridManager: {fileID: 713049065}

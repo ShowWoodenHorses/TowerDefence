@@ -9,6 +9,9 @@ namespace Assets.Scripts.Managers
 {
     public class TowerViewManager : MonoBehaviour
     {
+        [Header("Texture")]
+        [SerializeField] private Texture2D gradientTexture;
+
         private Dictionary<int, TowerVisual> views = new();
         private List<GameObject> deactivateTowers = new();
 

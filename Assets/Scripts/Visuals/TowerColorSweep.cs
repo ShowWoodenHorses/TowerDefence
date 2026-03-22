@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts.Enum;
 
 public class TowerColorSweep : MonoBehaviour
 {
@@ -8,14 +9,27 @@ public class TowerColorSweep : MonoBehaviour
 
     float minY;
     float maxY;
-
     float sweep;
 
     static readonly int SweepID = Shader.PropertyToID("_Sweep");
-    static readonly int ColorAID = Shader.PropertyToID("_ColorA");
-    static readonly int ColorBID = Shader.PropertyToID("_ColorB");
+    static readonly int ColorIndexID = Shader.PropertyToID("_ColorIndex");
+    static readonly int TargetIndexID = Shader.PropertyToID("_TargetIndex");
     static readonly int MinYID = Shader.PropertyToID("_MinY");
     static readonly int MaxYID = Shader.PropertyToID("_MaxY");
+
+    int GetColorIndex(Color color)
+    {
+        if (color == Color.black) return 0;
+        else if (color == Color.white) return 1;
+        else if (color == Color.red) return 2;
+        else if (color == Color.purple) return 3;
+        else if (color == Color.orange) return 4;
+        else if (color == Color.yellow) return 5;
+        else if (color == Color.green) return 6;
+        else if (color == Color.blue) return 8;
+
+        return 0;
+    }
 
     void Awake()
     {
@@ -34,12 +48,8 @@ public class TowerColorSweep : MonoBehaviour
         foreach (var r in renderers)
         {
             var b = r.bounds;
-
-            if (b.min.y < minY)
-                minY = b.min.y;
-
-            if (b.max.y > maxY)
-                maxY = b.max.y;
+            if (b.min.y < minY) minY = b.min.y;
+            if (b.max.y > maxY) maxY = b.max.y;
         }
     }
 
@@ -55,16 +65,17 @@ public class TowerColorSweep : MonoBehaviour
             r.SetPropertyBlock(block);
         }
     }
+
     public void SetBaseColor(Color color)
     {
+        int index = GetColorIndex(color);
+
         foreach (var r in renderers)
         {
             r.GetPropertyBlock(block);
-
-            block.SetColor(ColorAID, color);
-            block.SetColor(ColorBID, color);
+            block.SetInt(ColorIndexID, index);
+            block.SetInt(TargetIndexID, index);
             block.SetFloat(SweepID, 0);
-
             r.SetPropertyBlock(block);
         }
     }
@@ -76,41 +87,34 @@ public class TowerColorSweep : MonoBehaviour
 
     IEnumerator SweepRoutine(Color newColor, float duration)
     {
+        int index = GetColorIndex(newColor);
+
         foreach (var r in renderers)
         {
             r.GetPropertyBlock(block);
-
-            block.SetColor(ColorBID, newColor);
-
+            block.SetInt(TargetIndexID, index);
             r.SetPropertyBlock(block);
         }
 
         float t = 0;
-
         while (t < duration)
         {
             t += Time.deltaTime;
-
             sweep = 1 - Mathf.Clamp01(t / duration);
 
             foreach (var r in renderers)
             {
                 r.GetPropertyBlock(block);
-
                 block.SetFloat(SweepID, sweep);
-
                 r.SetPropertyBlock(block);
             }
-
             yield return null;
         }
 
         foreach (var r in renderers)
         {
             r.GetPropertyBlock(block);
-
-            block.SetColor(ColorAID, newColor);
-
+            block.SetInt(ColorIndexID, index);
             r.SetPropertyBlock(block);
         }
     }

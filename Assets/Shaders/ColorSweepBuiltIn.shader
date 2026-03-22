@@ -1,79 +1,114 @@
-Shader "Custom/ColorSweepBuiltIn"
+Shader "Custom/ColorSweepPalette_URP"
 {
     Properties
     {
-        _ColorA ("Old Color", Color) = (1,0,0,1)
-        _ColorB ("New Color", Color) = (0,1,0,1)
-
+        _PaletteTex ("Palette", 2D) = "white" {}
+        _ColorIndex ("Color Index", Int) = 0
+        _TargetIndex ("Target Index", Int) = 0
         _Sweep ("Sweep", Range(0,1)) = 0
-        _EdgeWidth ("Edge Width", Range(0.001,0.2)) = 0.05
-        _EdgeColor ("Edge Color", Color) = (1,1,1,1)
-
         _MinY ("MinY", Float) = 0
         _MaxY ("MaxY", Float) = 1
+        
+        // Настройки линии
+        [Toggle]_EnableLine ("Enable Line Effect", Float) = 1
+        _LineWidth ("Line Width", Range(0, 0.2)) = 0.05
+        _LineColor ("Line Color", Color) = (1, 1, 1, 1)
+        _LineIntensity ("Line Intensity", Range(0, 2)) = 1
+        _LineSoftness ("Line Softness", Range(0, 0.1)) = 0.02
+        _LineGlow ("Line Glow", Range(0, 1)) = 0.3
+        _GlowColor ("Glow Color", Color) = (1, 0.8, 0.4, 1)
     }
 
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderPipeline"="UniversalPipeline" "RenderType"="Opaque" }
 
         Pass
         {
-            CGPROGRAM
+            HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
 
-            #include "UnityCG.cginc"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
-            struct appdata
-            {
-                float4 vertex : POSITION;
-            };
+            TEXTURE2D(_PaletteTex);
+            SAMPLER(sampler_PaletteTex);
 
-            struct v2f
-            {
-                float4 pos : SV_POSITION;
-                float height : TEXCOORD0;
-            };
-
-            float4 _ColorA;
-            float4 _ColorB;
-
+            int _ColorIndex;
+            int _TargetIndex;
             float _Sweep;
-            float _EdgeWidth;
-            float4 _EdgeColor;
-
             float _MinY;
             float _MaxY;
+            
+            float _EnableLine;
+            float _LineWidth;
+            float4 _LineColor;
+            float _LineIntensity;
+            float _LineSoftness;
+            float _LineGlow;
+            float4 _GlowColor;
 
-            v2f vert(appdata v)
+            struct Attributes
             {
-                v2f o;
+                float4 positionOS : POSITION;
+            };
 
-                o.pos = UnityObjectToClipPos(v.vertex);
+            struct Varyings
+            {
+                float4 positionHCS : SV_POSITION;
+                float3 worldPos : TEXCOORD0;
+            };
 
-                float h = (v.vertex.y - _MinY) / (_MaxY - _MinY);
-                o.height = saturate(h);
-
+            Varyings vert (Attributes v)
+            {
+                Varyings o;
+                o.positionHCS = TransformObjectToHClip(v.positionOS);
+                o.worldPos = TransformObjectToWorld(v.positionOS).xyz;
                 return o;
             }
 
-            fixed4 frag(v2f i) : SV_Target
+            half4 frag(Varyings i) : SV_Target
             {
-                float t = step(_Sweep, i.height);
-
-                float4 col = lerp(_ColorA, _ColorB, t);
-
-                float edge =
-                    smoothstep(_Sweep - _EdgeWidth, _Sweep, i.height) -
-                    smoothstep(_Sweep, _Sweep + _EdgeWidth, i.height);
-
-                col.rgb += edge * _EdgeColor.rgb;
-
-                return col;
+                float h = (i.worldPos.y - _MinY) / (_MaxY - _MinY);
+                h = saturate(h);
+    
+                int colorIndex = (_Sweep < h) ? _TargetIndex : _ColorIndex;
+                colorIndex = clamp(colorIndex, 0, 9);
+                
+                float y = h;
+                float x = (colorIndex * 10 + 5) / 100.0;
+                
+                float3 col = SAMPLE_TEXTURE2D(_PaletteTex, sampler_PaletteTex, float2(x, y)).rgb;
+                
+                if (_EnableLine > 0.5)
+                {
+                    float lineDistance = abs(h - _Sweep);
+                    
+                    // Основная линия
+                    float lineMask = 1 - smoothstep(0, _LineWidth, lineDistance);
+                    
+                    // Свечение (более широкая область)
+                    float glowMask = 0;
+                    if (_LineGlow > 0)
+                    {
+                        glowMask = 1 - smoothstep(0, _LineWidth * (1 + _LineGlow * 2), lineDistance);
+                        glowMask = saturate(glowMask - lineMask) * _LineGlow;
+                    }
+                    
+                    if (_LineSoftness > 0)
+                    {
+                        float softEdge = smoothstep(_LineWidth - _LineSoftness, _LineWidth, lineDistance);
+                        lineMask = lineMask * (1 - softEdge) + softEdge;
+                    }
+                    
+                    // Применяем цвета
+                    col = lerp(col, _LineColor.rgb, lineMask * _LineIntensity);
+                    col = lerp(col, _GlowColor.rgb, glowMask);
+                }
+                
+                return float4(col, 1);
             }
-
-            ENDCG
+            ENDHLSL
         }
     }
 }

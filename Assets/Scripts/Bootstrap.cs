@@ -13,6 +13,7 @@ namespace Assets.Scripts
     {
         [SerializeField] private EnemyManager enemyManager;
         [SerializeField] private TowerManager towerManager;
+        [SerializeField] private TowerColorSweep towerColorSweep;
         [SerializeField] private EffectManager effectManager;
         [SerializeField] private ProjectileManager projectileManager;
         [SerializeField] private GridManager gridManager;
