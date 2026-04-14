@@ -19,6 +19,15 @@ namespace Assets.Scripts.Enum
 
     public class ColorTypeHandler
     {
+        public ColorType[] cachedValues;
+
+        public ColorTypeHandler()
+        {
+            cachedValues = Array.FindAll(
+                (ColorType[])System.Enum.GetValues(typeof(ColorType)),
+                c => c != ColorType.None
+            );
+        }
         public Color GetColor(ColorType color)
         {
             switch (color)
@@ -41,5 +50,11 @@ namespace Assets.Scripts.Enum
                     return Color.white;
             }
         }
+
+        public ColorType GetRandom()
+        {
+            return cachedValues[UnityEngine.Random.Range(0, cachedValues.Length)];
+        }
+
     }
 }

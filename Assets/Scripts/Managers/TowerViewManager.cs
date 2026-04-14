@@ -33,12 +33,12 @@ namespace Assets.Scripts.Managers
             {
                 prefab.transform.position = data.position;
                 views[id] = prefab.GetComponent<TowerVisual>();
-                prefab.GetComponent<TowerColorSweep>().SetBaseColor(data.color);
+                prefab.GetComponent<ColorSweep>().SetBaseColor(data.color);
                 prefab.SetActive(true);
                 return;
             }
             var v = Instantiate(prefab, data.position, Quaternion.identity, transform);
-            v.GetComponent<TowerColorSweep>().SetBaseColor(data.color);
+            v.GetComponent<ColorSweep>().SetBaseColor(data.color);
 
             views[id] = v.GetComponent<TowerVisual>();
 
@@ -56,7 +56,7 @@ namespace Assets.Scripts.Managers
         {
             if (views.Keys.Contains(id))
             {
-                views[id].gameObject.GetComponent<TowerColorSweep>().ChangeColor(newColor, 1.5f);
+                views[id].gameObject.GetComponent<ColorSweep>().ChangeColor(newColor, 1.5f);
             }
         }
 

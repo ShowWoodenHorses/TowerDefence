@@ -18,12 +18,14 @@ namespace Assets.Scripts.Spawners
         [SerializeField] private List<EnemyTypeData> enemies;
 
         private EnemyManager enemyManager;
+        private ColorTypeHandler colorTypeHandler;
 
         private List<int> availableTypes = new List<int>();
 
         public void Init(EnemyManager enemyManager)
         {
             this.enemyManager = enemyManager;
+            colorTypeHandler = new ColorTypeHandler();
 
             StartCoroutine(SpawnEnemy());
         }
@@ -46,10 +48,13 @@ namespace Assets.Scripts.Spawners
 
                 EnemyTypeData enemyType = enemies[typeIndex];
 
-                EnemyConfig config = GetConfig(enemyType.ColorType);
+                EnemyConfig config = GetConfig(enemyType.enemyType);
+                ColorType colorType = colorTypeHandler.GetRandom();
 
                 enemyManager.SpawnEnemy(
-                    enemyType.ColorType,
+                    colorType,
+                    colorTypeHandler,
+                    config.enemyType,
                     startPos.position,
                     config.speed,
                     config.health
@@ -77,11 +82,11 @@ namespace Assets.Scripts.Spawners
             }
         }
 
-        private EnemyConfig GetConfig(ColorType type)
+        private EnemyConfig GetConfig(EnemyType type)
         {
             for (int i = 0; i < enemiesConfigs.Count; i++)
             {
-                if (enemiesConfigs[i].ColorType == type)
+                if (enemiesConfigs[i].enemyType == type)
                     return enemiesConfigs[i];
             }
 
@@ -93,7 +98,7 @@ namespace Assets.Scripts.Spawners
         {
             public int GeneralCountEnemy;
             public int CurrentCountEnemy;
-            public ColorType ColorType;
+            public EnemyType enemyType;
         }
     }
 }

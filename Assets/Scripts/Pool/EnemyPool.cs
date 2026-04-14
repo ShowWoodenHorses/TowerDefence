@@ -20,7 +20,7 @@ namespace Assets.Scripts.Pool
             gameEvents.OnEnemyDied.OnRaised += HandleReturn;
         }
 
-        public EnemyVisual Spawn(ColorType type, Vector3 pos)
+        public EnemyVisual Spawn(EnemyType type, Vector3 pos)
         {
 
             if (!pools.ContainsKey((int)type))
@@ -65,7 +65,7 @@ namespace Assets.Scripts.Pool
     [System.Serializable]
     public class EnemyEntry
     {
-        public ColorType type;
+        public EnemyType type;
         public EnemyVisual prefab;
         public int preload = 10;
     }

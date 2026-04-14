@@ -7,7 +7,7 @@ namespace Assets.Scripts.Configs.Enemy
     [CreateAssetMenu(fileName = "EnemyConfig", menuName = "Scriptable Objects/Enemy Config")]
     public class EnemyConfig : ScriptableObject
     {
-        public ColorType ColorType;
+        public EnemyType enemyType;
         public GameObject prefab;
         public int health;
         public float speed;

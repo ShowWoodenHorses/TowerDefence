@@ -2,7 +2,7 @@
 using System.Collections;
 using Assets.Scripts.Enum;
 
-public class TowerColorSweep : MonoBehaviour
+public class ColorSweep : MonoBehaviour
 {
     Renderer[] renderers;
     MaterialPropertyBlock block;

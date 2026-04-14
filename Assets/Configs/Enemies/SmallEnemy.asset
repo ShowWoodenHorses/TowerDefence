@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 628b8cf94a5ec5841916468920a687af, type: 3}
-  m_Name: PurpleEnemy
+  m_Name: SmallEnemy
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Configs.Enemy.EnemyConfig
-  ColorType: 128
-  prefab: {fileID: 1519346665746856532, guid: 833bef1261e1265469e0f6144ca751df, type: 3}
-  health: 100
-  speed: 2
+  enemyType: 0
+  prefab: {fileID: 919132149155446097, guid: 677ba2a51c1479840a79d920bb4a7a2c, type: 3}
+  health: 200
+  speed: 1.5

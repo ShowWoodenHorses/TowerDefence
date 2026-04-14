@@ -84,7 +84,7 @@ namespace Assets.Scripts.Managers
             }
         }
 
-        public void SpawnEnemy(ColorType type, Vector3 pos, float speed, int hp)
+        public void SpawnEnemy(ColorType colorType, ColorTypeHandler handler, EnemyType type, Vector3 pos, float speed, int hp)
         {
             if (countEnemies >= enemies.Length)
             {
@@ -93,6 +93,7 @@ namespace Assets.Scripts.Managers
             }
 
             EnemyVisual v = enemyPool.Spawn(type, pos);
+            v.SetColor(colorType, handler);
 
             if (v == null)
             {
@@ -107,7 +108,7 @@ namespace Assets.Scripts.Managers
                 hp = hp,
                 pointIndex = 0,
                 animOffset = Random.Range(0f, Mathf.PI * 2),
-                types = (int)v.GetEnemyType()
+                types = (int)v.GetColorType()
             };
             enemies[countEnemies].version++;
 
