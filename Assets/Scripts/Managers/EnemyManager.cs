@@ -63,9 +63,22 @@ namespace Assets.Scripts.Managers
                 float tiltX = Mathf.Sin(e.animOffset * 0.5f) * 3f;
                 float tiltZ = Mathf.Sin(e.animOffset) * 5f;
 
+                Vector3 dir = target - e.position;
+
+                // если почти стоим — не дергаем rotation
+                Quaternion lookRot = visuals[i].transform.rotation;
+
+                if (dir.sqrMagnitude > 0.0001f)
+                {
+                    lookRot = Quaternion.LookRotation(dir);
+                }
+
+                // добавляем твой tilt поверх поворота
+                Quaternion finalRot = lookRot * Quaternion.Euler(tiltX, 0, tiltZ);
+
                 visuals[i].transform.SetPositionAndRotation(
                     e.position,
-                    Quaternion.Euler(tiltX, 0, tiltZ));
+                    finalRot);
 
                 gridManager.MoveEnemy(i, oldPos, e.position);
             }
