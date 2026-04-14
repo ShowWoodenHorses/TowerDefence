@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BlueEnemy
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Configs.Enemy.EnemyConfig
   ColorType: 8
-  prefab: {fileID: 1519346665746856532, guid: e714093cf88750d4d9523c9644621d16, type: 3}
+  prefab: {fileID: 3672799504006341135, guid: f81e03432a43bfd4389e59ecb9bbce79, type: 3}
   health: 300
   speed: 1
