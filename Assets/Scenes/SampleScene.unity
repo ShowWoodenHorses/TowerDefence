@@ -11319,10 +11319,18 @@ MonoBehaviour:
   time: 2
   enemiesConfigs:
   - {fileID: 11400000, guid: c54ac28aeba9c9445b5122f69cf5bbc0, type: 2}
+  - {fileID: 11400000, guid: 84b1011707bfbb142b2184e7f6d7a80a, type: 2}
+  - {fileID: 11400000, guid: 1f5eba32799324b4aa63161c620d3fc4, type: 2}
   enemies:
-  - GeneralCountEnemy: 50
+  - GeneralCountEnemy: 30
     CurrentCountEnemy: 0
     enemyType: 0
+  - GeneralCountEnemy: 30
+    CurrentCountEnemy: 0
+    enemyType: 1
+  - GeneralCountEnemy: 30
+    CurrentCountEnemy: 0
+    enemyType: 2
 --- !u!4 &308312336
 Transform:
   m_ObjectHideFlags: 0
@@ -15355,7 +15363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &402328317
 RectTransform:
   m_ObjectHideFlags: 0
@@ -96342,6 +96350,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Pool.EnemyPool
   entries:
   - type: 0
+    prefab: {fileID: 8722430147528731757, guid: 350237eacda644249a0b41592e740000, type: 3}
+    preload: 10
+  - type: 1
+    prefab: {fileID: 2121375369067942495, guid: b2162c4eea92def46ae74025d27ab484, type: 3}
+    preload: 10
+  - type: 2
     prefab: {fileID: 1354989833950755679, guid: f81e03432a43bfd4389e59ecb9bbce79, type: 3}
     preload: 10
 --- !u!4 &2013842868

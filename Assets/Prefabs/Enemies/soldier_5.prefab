@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Visuals.EnemyVisual
   colorType: 8
-  enemyType: 0
+  enemyType: 2
 --- !u!114 &1398658963105861853
 MonoBehaviour:
   m_ObjectHideFlags: 0

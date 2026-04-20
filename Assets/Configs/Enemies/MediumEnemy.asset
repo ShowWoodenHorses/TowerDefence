@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 628b8cf94a5ec5841916468920a687af, type: 3}
-  m_Name: SmallEnemy
+  m_Name: MediumEnemy
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Configs.Enemy.EnemyConfig
-  enemyType: 0
-  prefab: {fileID: 143727991769701668, guid: 350237eacda644249a0b41592e740000, type: 3}
-  health: 50
-  speed: 2
+  enemyType: 1
+  prefab: {fileID: 3291112198590416029, guid: b2162c4eea92def46ae74025d27ab484, type: 3}
+  health: 150
+  speed: 1.5
